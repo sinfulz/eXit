@@ -18,7 +18,10 @@ I have ported the game over to Python as part of a project I created to understa
 python3 eXit.py
 ```
 
+# Changelog
+* Version 0.1, 19/04/2020 - Release day! 
+
 # Disclaimer:
-This is my first Python program created, it may not have been written using the best Python coding skills but it has been done 100% by me. Feel free to suggest changes/improves/feedback via the Issues section. Thank you.
+This is my first Python program created, it may not have been written using the best Python coding skills but it has been done 100% by me. Feel free to suggest changes/improves/feedback via the Issues section. Please treat this as a work in progress as I will continously improve it to make the program as efficient & bug free as possible. Thank you.
 
 This piece of software has no affiliation with the Mr Robot brand or the USA Network.
