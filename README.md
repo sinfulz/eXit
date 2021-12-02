@@ -6,22 +6,16 @@
 
 eXit is the game found on the Mr Robot tv series. It can be played here: https://www.whoismrrobot.com/exit/
 
-I have ported the game over to Python as part of a project I created to understand and learn Python.
-
-# Requirements
-* os
-* sys
-
 # Usage
 
 ```
-python3 eXit.py
+php eXit.php
 ```
 
 # Changelog
 * Version 0.1, 19/04/2020 - Release day! 
 
 # Disclaimer:
-This is my first Python program created, it may not have been written using the best Python coding skills but it has been done 100% by me. Feel free to suggest changes/improves/feedback via the Issues section. Please treat this as a work in progress as I will continously improve it to make the program as efficient & bug free as possible. Thank you.
+All credit for the original python goes to sinfulz for his awesome [original script](https://github.com/sinfulz/eXit).
 
 This piece of software has no affiliation with the Mr Robot brand or the USA Network.
