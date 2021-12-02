@@ -1,0 +1,34 @@
+# plans to make this into a more cohesive experience, will double-check all the things Elliot tries in the show later
+
+You're trapped in a dungeon with your friend.
+
+
+trapped, both fell down hole, you landed on your friend, they're injured
+"The beast chasing you is sure to catch up to you soon, so make haste."
+
+
+You see a barrel. What do you do?
+
+
+
+The barrel rolls aside, and you find a secret tunnel.
+What do you do?
+You start to escape, but your friend is too weak to go with you. They hand you a note.
+What do you do?
+It is too dark to read the note.
+What do you do?
+You crawl through the tunnel. It leads to a beach.
+What do you do?
+In the water you see a boat.
+What do you do?
+Congratulations, you're heading to a new world!
+
+
+
+starting room
+    look
+    look at barrel
+    look at friend
+
+
+beach
