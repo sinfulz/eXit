@@ -32,3 +32,23 @@ starting room
 
 
 beach
+
+
+
+
+
+
+secret room -
+    You wake in a cold room. The walls are bare and the carpet is worn.
+    The only light is provided by a dim bulb, which hangs loosely from the ceiling.
+    Even the air feels unwelcoming and hostile. The bed you lie on is uncomfortable.
+    A rickety wooden desk leans against the wall.
+
+    [look at bed]
+    The sheets are dusty and coarse. It is obvious that no part of the bed has been cleaned for months.
+
+    [look at desk]
+    You approach the desk. The paint is off-white and flaky.
+    It seems to be clinging to the wood for dear life.
+    A single sheet of paper and a wooden ruler lay on the desk.
+    The drawer of the desk is slightly open.
