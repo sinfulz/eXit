@@ -39,7 +39,7 @@ function slow_print($time, $line, $newline) {
 # Time variables
 $time_logo = 1100;
 $time_text = 26000;
-#$time_text = 1000; # debug speed
+$time_text = 1000; # debug speed
 
 function startup($time_logo) {
     slow_print($time_logo, '████████████████████████████████████████████████████████████████████████████████', true);
@@ -110,11 +110,54 @@ function show_inventory($time_text, $inventory) {
     }
 }
 
+function word_rand($word) {
+    $output = '';
+    $capital = false;
+    $cap_combo = '';
+    $length = strlen($word);
+    $random = mt_rand(0, $length - 1);
+    for ($i = 0; $i < $length; $i++) {
+        if ($capital) {
+            $output .= substr($word, $i, 1);
+        } else {
+            if ($random == $i) {
+                $output .= strtoupper(substr($word, $i, 1));
+                $cap_combo .= strtoupper(substr($word, $i, 1));
+            } else {
+                $output .= substr($word, $i, 1);
+            }
+        }
+    }
+    return ['combo' => $cap_combo, 'full' => $output];
+}
+
+function full_rand($sentence, $end) {
+    $sentence = strtolower($sentence);
+    $output = '';
+    $combo = '';
+    $words = explode(' ', $sentence);
+    foreach ($words as $word) {
+        $rand = word_rand($word);
+        $combo .= $rand['combo'];
+        $output .= $rand['full'];
+        if (end($words) != $word) {
+            $output .= ' ';
+        } else {
+            $output .= $end;
+        }
+    }
+    return ['combo' => $combo, 'full' => $output];
+}
+
+
 # start
 logo_space($time_logo);
-#startup($time_logo);
 slow_print($time_text, 'Press the enter button to continue..', false);
-if (readline('.') == 'eXit') {
+
+$startup_input = readline('.');
+
+# hidden demo
+if ($startup_input == 'eXit') {
     $inventory = [
         'Ruler' => 'false'
     ];
@@ -138,6 +181,7 @@ if (readline('.') == 'eXit') {
     $desk_switch = false;
     $drawer_tried_switch = false;
     $drawer_open_switch = false;
+    $note =  full_rand('exit while you still can', '.');
     while (!$desk_switch) {
         if (in_array($desk_input, ['look at drawer', 'inspect drawer', 'look drawer', 'open drawer'])) {
             if ($drawer_open_switch == false) {
@@ -161,7 +205,7 @@ if (readline('.') == 'eXit') {
             }
         } elseif (substr_count($desk_input, 'lock') == 1) {
             $combo = substr($desk_input, 5, 5);
-            if (strtolower($combo) == 'xiula') {
+            if (strtolower($combo) == strtolower($note['combo'])) {
                 slow_print($time_text, "\nThe lock clicks open. Peering inside the box, you see a small brass key.\nYou use it to open the door to your room, and eXit.", true);
                 $desk_switch = true;
                 congrats($time_text);
@@ -172,12 +216,12 @@ if (readline('.') == 'eXit') {
 
         } elseif (in_array($desk_input, ['look paper', 'look at paper', 'inspect paper', 'look ruler', 'look at ruler', 'inspect ruler'])) {
             if ($inventory['Ruler'] == 1) {
-                slow_print($time_text, "\nThe paper reads:\neXit whIle yoU stiLl cAn", true);
+                slow_print($time_text, "\nThe paper reads:\n".$note['full'], true);
             } else {
                 slow_print($time_text, "\nThe ruler and the paper on the desk are less dusty than the rest of the room.\nYou pick up the ruler.", true);
                 $inventory['Ruler'] = true;
                 show_inventory($time_text, $inventory);
-                slow_print($time_text, "\nYou look at the paper more closely. It reads:\neXit whIle yoU stiLl cAn", true);
+                slow_print($time_text, "\nYou look at the paper more closely. It reads:\n".$note['full'], true);
             }
             $desk_input = readline('> ');
         } elseif (in_array($desk_input, ['look', 'look desk', 'inspect desk', 'look at desk'])) {
