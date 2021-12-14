@@ -9,7 +9,12 @@ trapped, both fell down hole, you landed on your friend, they're injured
 
 You see a barrel. What do you do?
 
-
+# move barrel
+# enter tunnel
+# read note
+# leave
+# look
+# get on boat
 
 The barrel rolls aside, and you find a secret tunnel.
 What do you do?
