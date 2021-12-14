@@ -172,7 +172,6 @@ if (readline('.') == 'eXit') {
                 $desk_input = readline('> ');
             }
 
-
         } elseif (in_array($desk_input, ['look paper', 'look at paper', 'inspect paper', 'look ruler', 'look at ruler', 'inspect ruler'])) {
             if ($inventory['Ruler'] == 1) {
                 slow_print($time_text, "\nThe paper reads:\neXit whIle yoU stiLl cAn", true);
