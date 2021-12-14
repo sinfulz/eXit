@@ -71,7 +71,7 @@ function shutdown($time_logo) {
     slow_print($time_logo, black('████████████████████████████████████████████████████████████████████████████████'), true);
 }
 
-function shutdown_space($time_logo) {
+function logo_space($time_logo) {
     slow_print($time_logo, '                                                                                ', true);
     slow_print($time_logo, '                               ▓╫╫╫╫     ╫╫╫╫▓                                  ', true);
     slow_print($time_logo, '                   ╬╬╬╬╬╬╬╬     ╬╬╬╬╬╬╬╬╬╬╬╬╣             ╬╬╬╬                  ', true);
@@ -111,13 +111,12 @@ function show_inventory($time_text, $inventory) {
 }
 
 # start
-shutdown_space($time_logo);
+logo_space($time_logo);
 #startup($time_logo);
 slow_print($time_text, 'Press the enter button to continue..', false);
 if (readline('.') == 'eXit') {
     $inventory = [
-        'Ruler' => 'false',
-        'Key' => 'false'
+        'Ruler' => 'false'
     ];
     # desk
     slow_print($time_text, "\nYou wake in a cold room. The walls are bare and the carpet is worn.\nThe only light is provided by a dim bulb, which hangs loosely from the ceiling.\nEven the air feels unwelcoming and hostile. The bed you lie on is uncomfortable.\nA rickety wooden desk leans against the wall.", true);
@@ -129,9 +128,8 @@ if (readline('.') == 'eXit') {
         } elseif (in_array($wake_input, ['look at bed', 'inspect bed', 'look bed'])) {
             slow_print($time_text, "\nThe sheets are dusty and coarse. It is obvious that no part of the bed has been cleaned for months.", true);
             $wake_input = readline('> ');
-
         } else {
-            slow_print($time_text, 'I\'m sorry, I don\'t know what you mean.', true);
+            slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
             $wake_input = readline('> ');
         }
     }
@@ -194,84 +192,93 @@ if (readline('.') == 'eXit') {
             }
             $desk_input = readline('> ');
         } else {
-            slow_print($time_text, 'I\'m sorry, I don\'t know what you mean.', true);
+            slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
             $desk_input = readline('> ');
         }
     }
 }
 echo "\n";
 
-
-
-function trapped($time_text) {
-    slow_print($time_text, 'You\'re trapped in a dungeon with your friend.'."\n".'You see a barrel. What do you do?', true);
-}
-trapped($time_text);
-
-# tunnel
-function dungeon($time_text) {
-    echo cyan_bold('> ');
-    if (readline('') == 'move barrel') {
-        slow_print($time_text, 'The barrel rolls aside and you find a secret tunnel.'."\n".'What do you do?', true);
+slow_print($time_text, "\nYou're trapped in a dungeon with your friend. You see a barrel.", true);
+$barrel_input = readline('> ');
+$barrel_switch = false;
+while (!$barrel_switch) {
+    if (in_array($barrel_input, ['look at barrel', 'look barrel', 'inspect barrel', 'move barrel'])) {
+        $barrel_switch = true;
+    } elseif (in_array($barrel_input, ['look around'])) {
+        slow_print($time_text, "\nThe walls of the dungeon are damp, their stench is potent.\nThere is no route back.", true);
+        $barrel_input = readline('> ');
     } else {
-        slow_print($time_text, 'You can\'t do that here.', true);
+        slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
+        $barrel_input = readline('> ');
     }
 }
-dungeon($time_text);
 
-# note
-function bye($time_text) {
-    echo cyan_bold('> ');
-    if (readline('') == 'enter tunnel') {
-        slow_print($time_text, 'You start to escape but your friend is too weak to go with you. They hand you a note.'."\n".'What do you do?', true);
+slow_print($time_text, "\nThe barrel rolls aside and you find a secret tunnel.", true);
+$tunnel_input = readline('> ');
+$tunnel_switch = false;
+while (!$tunnel_switch) {
+    if (in_array($tunnel_input, ['go to tunnel', 'go tunnel', 'enter tunnel'])) {
+        $tunnel_switch = true;
+    } elseif (in_array($tunnel_input, ['look', 'look around'])) {
+        slow_print($time_text, "\nThe walls of the dungeon are damp, their stench is potent.\nThe ony way forward is through the tunnel.\nThe light on the other side of the tunnel is blinding.", true);
+        $tunnel_input = readline('> ');
+} else {
+        slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
+        $tunnel_input = readline('> ');
+    }
+}
+
+slow_print($time_text, "\nYou start to escape but your friend is too weak to go with you.\nThey hand you a note.", true);
+$hand_input = readline('> ');
+$hand_switch = false;
+while (!$hand_switch) {
+    if (in_array($hand_input, ['read note', 'read', 'look note', 'look at note'])) {
+        slow_print($time_text, "\nIt is too dark to read the note.", true);
+        $hand_input = readline('> ');
+    } elseif (in_array($hand_input, ['leave', 'enter tunnel', 'go tunnel', 'go to tunnel'])) {
+        $hand_switch = true;
+    } elseif (in_array($hand_input, ['look', 'look around'])) {
+        slow_print($time_text, "\nThe walls of the dungeon are damp, their stench is potent.\nThe ony way forward is through the tunnel.\nThe light on the other side of the tunnel is blinding.", true);
+        $hand_input = readline('> ');
+} else {
+        slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
+        $hand_input = readline('> ');
+    }
+}
+
+slow_print($time_text, "\nYou crawl through the tunnel and the tunnel leads to a beach.", true);
+$beach_input = readline('> ');
+$beach_switch = false;
+while (!$beach_switch) {
+    if (in_array($beach_input, ['read note', 'read', 'look note', 'look at note'])) {
+        slow_print($time_text, "\nThe note reads:\ndon't leave me here.", true);
+        $beach_input = readline('> ');
+    } elseif (in_array($beach_input, ['look', 'look around'])) {
+        $beach_switch = true;
     } else {
-        slow_print($time_text, 'You can\'t type that.', true);
+        slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
+        $beach_input = readline('> ');
     }
 }
-bye($time_text);
 
-# leave
-function note($time_text) {
-    echo cyan_bold('> ');
-    if (readline('') == 'read note') {
-        slow_print($time_text, 'It is too dark to read the note.'."\n".'What do you do?', true);
+
+slow_print($time_text, "\nIn the water you see a boat.", true);
+$boat_input = readline('> ');
+$boat_switch = false;
+while (!$boat_switch) {
+    if (in_array($boat_input, ['look', 'look around'])) {
+        slow_print($time_text, "\nThe boat bobs slowly in the water.", true);
+        $boat_input = readline('> ');
+    } elseif (in_array($boat_input, ['get on boat', 'look at boat'])) {
+        slow_print($time_text, "Congratulations, you're heading to a new world!", true);
+        $boat_switch = true;
     } else {
-        slow_print($time_text, 'You can\'t do that here.', true);
+        slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
+        $boat_input = readline('> ');
     }
 }
-note($time_text);
-
-# beach
-function leave($time_text) {
-    echo cyan_bold('> ');
-    if (readline('') == 'leave') {
-        slow_print($time_text, 'You crawl through the tunnel and the tunnel leads to a beach.'."\n".'What do you do?', true);
-    } else {
-        slow_print($time_text, 'You can\'t do that here.', true);
-    }
-}
-leave($time_text);
-
-# boat
-function look($time_text) {
-    echo cyan_bold('> ');
-    if (readline('') == 'look') {
-        slow_print($time_text, 'In the water you see a boat.'."\n".'What do you do?', true);
-    } else {
-        slow_print($time_text, 'You can\'t do that here.', true);
-    }
-}
-look($time_text);
-
-# eXit
-function get($time_text) {
-    echo cyan_bold('> ');
-    if (readline('') == 'get on boat') {
-        slow_print($time_text, 'Congratulations, you\'re heading to a new world!', true);
-    }
-}
-get($time_text);
-shutdown_space($time_logo);
+#logo_space($time_logo);
 
 
 ?>
