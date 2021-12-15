@@ -1,13 +1,5 @@
 <?php
 
-# move barrel
-# enter tunnel
-# read note
-# leave
-# look
-# get on boat
-
-
 # Colours
 function cyan($text) {
     return "\e[0;36m$text\e[0m";
@@ -26,10 +18,10 @@ function black($text) {
 }
 
 function slow_print($time, $line, $newline) {
-    $line_arr = preg_split("//u", $line, -1, PREG_SPLIT_NO_EMPTY);
-    foreach ($line_arr as $char) {
-        echo $char;
-        usleep($time);
+    $line_arr = preg_split("//u", $line, -1, PREG_SPLIT_NO_EMPTY);  # split the line into an array to be iterated over
+    foreach ($line_arr as $char) {      # iterate over each character in the line
+        echo $char;                     # echo the character
+        usleep($time);                  # sleep for the given time
     }
     if ($newline) {
         echo "\n";
@@ -93,68 +85,63 @@ function congrats($time_text) {
     $key = 'xxxet-xi--ee--tteitxxeeetiteitxe-ixxii--ee--ieeetetxitextxexx-ii-ti-xi--t-i-e--t-iiit--etxeiex-xixit-xt-iett-xxex-xtetieix--ti-e-xxxxeixt--xxeieixeitee-eiee-xt-x-i-te-txxititxeexxte-titixi-tei-xieexx-xitittx-etitx--ie--ii-exit-iixt-ei---xxitx-itiexeitxeetxtetxiitxi-e--i-x-ixtexex---e-ttttxiietitiieeixixtiexx--exexetxxeei--xi-ixitte-tei-ttiexee-xtiitixxe-tti-e-xiiieix-ex-teeixex-xieix-eiie-exx--etex-etiittett--teii-tie-extixetiexi-xit-e-tei-i-tte-tetxtiix-ieix-ttexxieiiiet--xtietieiietxx-xexeit-xt-ttexii-tei-itxi-t-t-ixxix-ei-i-txixitetei-i-xeeexixte-xxitxittti-tte--te-xetiittxxiexeteixxx';
     slow_print($time_text, 'Here is your key:', true);
     echo "\n";
-    slow_print(2500, str_shuffle($key), true);
+    slow_print(2500, str_shuffle($key), true);      # randomise the key so it is different (nearly) every time
     echo "\n";
     slow_print($time_text, 'Use it wisely.', true);
     echo "\n";
     exit;
 }
 
-function show_inventory($time_text, $inventory) {
+function show_inventory($time_text, $inventory) {       # display the current inventory
     echo "\n";
     slow_print($time_text, "        INVENTORY", true);
-    foreach ($inventory as $item => $has) {
-        if ($has == 1) {
+    foreach ($inventory as $item => $has) {             # for each item in the inventory
+        if ($has == 1) {                                # if has the item
             slow_print($time_text, "| $item", true);
         }
     }
 }
 
-function word_rand($word) {
+function word_rand($word) {         # capitalise a word
     $output = '';
-    $capital = false;
     $cap_combo = '';
     $length = strlen($word);
-    $random = mt_rand(0, $length - 1);
-    for ($i = 0; $i < $length; $i++) {
-        if ($capital) {
-            $output .= substr($word, $i, 1);
+    $random = mt_rand(0, $length - 1);  # choose a random letter to be capital
+    for ($i = 0; $i < $length; $i++) {  # for the length of the word
+        if ($random == $i) {            # if chosen to be capital
+            $output .= strtoupper(substr($word, $i, 1));    # add capital to full output
+            $cap_combo .= strtoupper(substr($word, $i, 1)); # add capital to combo
         } else {
-            if ($random == $i) {
-                $output .= strtoupper(substr($word, $i, 1));
-                $cap_combo .= strtoupper(substr($word, $i, 1));
-            } else {
-                $output .= substr($word, $i, 1);
-            }
+            $output .= substr($word, $i, 1);                # add lowercase to full output
         }
     }
-    return ['combo' => $cap_combo, 'full' => $output];
+    return ['combo' => $cap_combo, 'full' => $output];             # return the letter for the combo and full output
 }
 
-function full_rand($sentence, $end) {
-    $sentence = strtolower($sentence);
+function full_rand($sentence, $end) {   # capitalise a sentence
     $output = '';
     $combo = '';
-    $words = explode(' ', $sentence);
-    foreach ($words as $word) {
-        $rand = word_rand($word);
-        $combo .= $rand['combo'];
-        $output .= $rand['full'];
-        if (end($words) != $word) {
-            $output .= ' ';
-        } else {
-            $output .= $end;
+    $sentence = strtolower($sentence);
+    $words = explode(' ', $sentence);   # make an array of the words in the sentence
+    foreach ($words as $word) {         # for each word in the sentence
+        $rand = word_rand($word);       # randomise it using the above function
+        $combo .= $rand['combo'];       # assign the combo to a variable
+        $output .= $rand['full'];       # assign the full word to a variable
+        if (end($words) == $word) {       # if this is the last word in the sentence
+            $output .= $end;            # add the 'end' to the sentence
+        } else {                        # if this isn't the last word in the sentence
+            $output .= ' ';             # add a space to the end
         }
     }
-    return ['combo' => $combo, 'full' => $output];
+    return ['combo' => $combo, 'full' => $output];             # return the combo and full output
 }
 
 
 # start
-#logo_space($time_logo);
+logo_space($time_logo);
 slow_print($time_text, 'Press the enter button to continue..', false);
 
-$startup_input = readline('.');
+$startup_input = readline('. ');
 
 # hidden demo
 if ($startup_input == 'eXit') {
@@ -240,87 +227,7 @@ if ($startup_input == 'eXit') {
             $desk_input = readline('> ');
         }
     }
-} elseif ($startup_input == 'detail') {
-    # more detailed story
-    slow_print($time_text, "\nYou're trapped in a dungeon with your friend. You see a barrel.", true);
-    $barrel_input = readline('> ');
-    $barrel_switch = false;
-    while (!$barrel_switch) {
-        if (in_array($barrel_input, ['look at barrel', 'look barrel', 'inspect barrel', 'move barrel'])) {
-            $barrel_switch = true;
-        } elseif (in_array($barrel_input, ['look around'])) {
-            slow_print($time_text, "\nThe walls of the dungeon are damp, their stench is potent.\nThere is no route back.", true);
-            $barrel_input = readline('> ');
-        } else {
-            slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
-            $barrel_input = readline('> ');
-        }
-    }
-
-    slow_print($time_text, "\nThe barrel rolls aside and you find a secret tunnel.", true);
-    $tunnel_input = readline('> ');
-    $tunnel_switch = false;
-    while (!$tunnel_switch) {
-        if (in_array($tunnel_input, ['go to tunnel', 'go tunnel', 'enter tunnel'])) {
-            $tunnel_switch = true;
-        } elseif (in_array($tunnel_input, ['look', 'look around'])) {
-            slow_print($time_text, "\nThe walls of the dungeon are damp, their stench is potent.\nThe ony way forward is through the tunnel.\nThe light on the other side of the tunnel is blinding.", true);
-            $tunnel_input = readline('> ');
-        } else {
-            slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
-            $tunnel_input = readline('> ');
-        }
-    }
-
-    slow_print($time_text, "\nYou start to escape but your friend is too weak to go with you.\nThey hand you a note.", true);
-    $hand_input = readline('> ');
-    $hand_switch = false;
-    while (!$hand_switch) {
-        if (in_array($hand_input, ['read note', 'read', 'look note', 'look at note'])) {
-            slow_print($time_text, "\nIt is too dark to read the note.", true);
-            $hand_input = readline('> ');
-        } elseif (in_array($hand_input, ['leave', 'enter tunnel', 'go tunnel', 'go to tunnel'])) {
-            $hand_switch = true;
-        } elseif (in_array($hand_input, ['look', 'look around'])) {
-            slow_print($time_text, "\nThe walls of the dungeon are damp, their stench is potent.\nThe ony way forward is through the tunnel.\nThe light on the other side of the tunnel is blinding.", true);
-            $hand_input = readline('> ');
-        } else {
-            slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
-            $hand_input = readline('> ');
-        }
-    }
-
-    slow_print($time_text, "\nYou crawl through the tunnel and the tunnel leads to a beach.", true);
-    $beach_input = readline('> ');
-    $beach_switch = false;
-    while (!$beach_switch) {
-        if (in_array($beach_input, ['read note', 'read', 'look note', 'look at note'])) {
-            slow_print($time_text, "\nThe note reads:\ndon't leave me here.", true);
-            $beach_input = readline('> ');
-        } elseif (in_array($beach_input, ['look', 'look around'])) {
-            $beach_switch = true;
-        } else {
-            slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
-            $beach_input = readline('> ');
-        }
-    }
-
-    slow_print($time_text, "\nIn the water you see a boat.", true);
-    $boat_input = readline('> ');
-    $boat_switch = false;
-    while (!$boat_switch) {
-        if (in_array($boat_input, ['look', 'look around'])) {
-            slow_print($time_text, "\nThe boat bobs slowly in the water.", true);
-            $boat_input = readline('> ');
-        } elseif (in_array($boat_input, ['get on boat', 'look at boat'])) {
-            slow_print($time_text, "Congratulations, you're heading to a new world!", true);
-            $boat_switch = true;
-        } else {
-            slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
-            $boat_input = readline('> ');
-        }
-    }
-} else {
+} elseif ($startup_input == 'og') {
     slow_print($time_text, "\nYou're trapped in a dungeon with your friend. You see a barrel.\nWhat do you do?", true);
     $barrel_input = readline('> ');
     $barrel_switch = false;
@@ -352,6 +259,12 @@ if ($startup_input == 'eXit') {
         if (in_array($hand_input, ['read note'])) {
             slow_print($time_text, "\nIt is too dark to read the note.", true);
             $hand_input = readline('> ');
+        } elseif (in_array($hand_input, ['light a match'])) {
+            slow_print($time_text, "\nThe note says, \"Don't leave me here.\"\nDo you leave your friend or stay?", true);
+            $hand_input = readline('> ');
+        } elseif (in_array($hand_input, ['stay'])) {
+            logo_space($time_logo);
+            exit;
         } elseif (in_array($hand_input, ['leave'])) {
             $hand_switch = true;
         } else {
@@ -364,10 +277,7 @@ if ($startup_input == 'eXit') {
     $beach_input = readline('> ');
     $beach_switch = false;
     while (!$beach_switch) {
-        if (in_array($beach_input, ['read note'])) {
-            slow_print($time_text, "\nThe note reads:\ndon't leave me here.", true);
-            $beach_input = readline('> ');
-        } elseif (in_array($beach_input, ['look'])) {
+        if (in_array($beach_input, ['look'])) {
             $beach_switch = true;
         } else {
             slow_print($time_text, "\nYou can't do that here.", true);
@@ -387,11 +297,119 @@ if ($startup_input == 'eXit') {
             $boat_input = readline('> ');
         }
     }
+} else {
+    # more detailed story
+    slow_print($time_text, "\nYou're trapped in a dungeon with your friend.\nThey are injured, and sit slumped against a wall.\nThere is a barrel in front of you.", true);
+    $barrel_input = readline('> ');
+    $barrel_switch = false;
+    $sit_switch = false;
+    $left_switch = false;
+    $note_switch = false;
+    while (!$barrel_switch) {
+        if (in_array($barrel_input, ['look at barrel', 'look barrel', 'inspect barrel', 'move barrel'])) {
+            $barrel_switch = true;
+        } elseif (in_array($barrel_input, ['sit', 'sit down', 'sit with friend', 'sit down with friend', 'sit with my friend', 'sit down with my friend'])) {
+            slow_print($time_text, "\nAs you sit down next to your friend, they hand you a note.", true);
+            $sit_switch = true;
+            $barrel_input = readline('> ');
+        } elseif (in_array($barrel_input, ['read note', 'read', 'look note', 'look at note']) && $sit_switch) {
+            slow_print($time_text, "\nIt is too dark to read the note.\nYou remember the box of matches in your pocket, empty but for one.", true);
+            $barrel_input = readline('> ');
+        } elseif (in_array($barrel_input, ['light a match', 'light match']) && $sit_switch) {
+            slow_print($time_text, "\nThe match flickers to life, and illuminates the note.\nThe note says, \"Don't leave me here.\"\nDo you leave your friend or stay?", true);
+            $note_switch = true;
+            $barrel_input = readline('> ');
+        } elseif (in_array($barrel_input, ['stay']) && $note_switch && $sit_switch) {
+            slow_print($time_text, "\nYou stay seated next to your friend.\nAs the match's flame wavers, your friend turns to you and smiles.", true);
+            logo_space($time_logo);
+            exit;
+        } elseif (in_array($barrel_input, ['leave']) && $sit_switch) {
+            slow_print($time_text, "\nYou stand up and look for a way out.\nThe barrel looks light enough to move.", true);
+            $left_switch = true;
+            $barrel_input = readline('> ');
+        } elseif (in_array($barrel_input, ['look around', 'look'])) {
+            slow_print($time_text, "\nThe walls of the dungeon are damp. Your friend is still sitting.", true);
+            $barrel_input = readline('> ');
+        } else {
+            slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
+            $barrel_input = readline('> ');
+        }
+    }
+
+    slow_print($time_text, "\nFlecks of paint fall from the barrel when you touch it.\nIts metal frame, rusted and worn, creaks as you roll it aside.\nIn its place lies the entrance to a secret tunnel.", true);
+    $tunnel_input = readline('> ');
+    $tunnel_switch = false;
+    while (!$tunnel_switch) {
+        if (in_array($tunnel_input, ['leave', 'go to tunnel', 'go tunnel', 'enter tunnel'])) {
+            $tunnel_switch = true;
+        } elseif (in_array($tunnel_input, ['look', 'look around'])) {
+            slow_print($time_text, "\nThe walls of the dungeon are damp.\nThe only way forward is through the tunnel.\nThe light on the other side is blinding.", true);
+            $tunnel_input = readline('> ');
+        } else {
+            slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
+            $tunnel_input = readline('> ');
+        }
+    }
+    if ($left_switch) {
+        slow_print($time_text, "\nYou take one last look at your friend, then walk towards the exit.", false);
+    } else {
+        slow_print($time_text, "\nYou start to enter the tunnel, but your friend is too weak to go with you.\nWith shaking hands, they give you a note.", true);
+        $hand_input = readline('> ');
+        $hand_switch = false;
+        $note_switch = false;
+        $leave_switch = false;
+        while (!$hand_switch) {
+            if (in_array($hand_input, ['read note', 'read', 'look note', 'look at note'])) {
+                slow_print($time_text, "\nIt is too dark to read the note.\nYou remember the box of matches in your pocket, empty but for one.", true);
+                $hand_input = readline('> ');
+            } elseif (in_array($hand_input, ['light a match', 'light match'])) {
+                slow_print($time_text, "\nThe match flickers to life, and illuminates the note.\nThe note says, \"Don't leave me here.\"\nDo you leave your friend or stay?", true);
+                $note_switch = true;
+                $hand_input = readline('> ');
+            } elseif (in_array($hand_input, ['stay']) && $note_switch || in_array($hand_input, ['stay']) && $leave_switch && !$left_switch) {
+                slow_print($time_text, "\nYou sit down next to your friend.\nAs the match's flame wavers, your friend turns to you and smiles.", true);
+                logo_space($time_logo);
+                exit;
+            } elseif (in_array($hand_input, ['leave', 'enter tunnel', 'go tunnel', 'go to tunnel'])) {
+                if ($leave_switch || $left_switch) {
+                    slow_print($time_text, "\nYou take one last look at your friend, then walk towards the exit.", false);
+                    $hand_switch = true;
+                } else {
+                    slow_print($time_text, "\nThe tunnel looks unstable.\nIf you leave you may never see your friend again.\nAre you sure you want to leave your friend?", true);
+                    $leave_switch = true;
+                    $hand_input = readline('> ');
+                }
+            } elseif (in_array($hand_input, ['look', 'look around'])) {
+                slow_print($time_text, "\nThe walls of the dungeon are damp.\nThe only way forward is through the tunnel.\nThe light on the other side is blinding.", true);
+                $hand_input = readline('> ');
+            } else {
+                slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
+                $hand_input = readline('> ');
+            }
+        }
+    }
+
+    slow_print($time_text, "\nIn your haste to escape, you dislodge part of the tunnel.\nYou narrowly avoid being crushed to death, and find yourself on a beach.", true);
+    slow_print($time_text, "\nIn the water you see a majestic ship. Its sails are as white as pearls.\nIt floats in a calm, inviting manner.", true);
+    $beach_input = readline('> ');
+    $beach_switch = false;
+    while (!$beach_switch) {
+        if (in_array($beach_input, ['read note', 'read', 'look note', 'look at note'])) {
+            slow_print($time_text, "\nThe note says, \"Don't leave me here.\"\nIt is too late.", true);
+            $beach_input = readline('> ');
+        } elseif (in_array($beach_input, ['get on boat', 'look at boat', 'get on ship', 'look at ship'])) {
+            slow_print($time_text, "\nAs you board the ship, you can't help but look back at the\ncollapsed remains of the tunnel.\nYou're heading to a new world, whether you like it or not.", false);
+            $beach_switch = true;
+        } else {
+            slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
+            $beach_input = readline('> ');
+        }
+    }
+    logo_space($time_logo);
 }
 echo "\n";
 
 
-#logo_space($time_logo);
 
 
 ?>

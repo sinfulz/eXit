@@ -16,17 +16,34 @@ You see a barrel. What do you do?
 # look
 # get on boat
 
-The barrel rolls aside, and you find a secret tunnel.
+The barrel rolls aside and you find a secret tunnel.
 What do you do?
 You start to escape, but your friend is too weak to go with you. They hand you a note.
 What do you do?
 It is too dark to read the note.
 What do you do?
+
+sit down with my friend
+
+Your friend hands you a note.
+What do you do?
+
+
+light a match
+
+The note says, "Don't leave me here."
+Do you leave your friend or stay?
+
+stay
+
+
+
 You crawl through the tunnel. It leads to a beach.
 What do you do?
 In the water you see a boat.
 What do you do?
 Congratulations, you're heading to a new world!
+Do you want to play again?
 
 
 
