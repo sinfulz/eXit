@@ -18,11 +18,15 @@ function black($text) {
 }
 
 function slow_print($time, $line, $newline) {
-    $line_arr = preg_split("//u", $line, -1, PREG_SPLIT_NO_EMPTY);  # split the line into an array to be iterated over
-    foreach ($line_arr as $char) {      # iterate over each character in the line
-        echo $char;                     # echo the character
-        usleep($time);                  # sleep for the given time
+    # Split the line into an array to be iterated over
+    $line_arr = preg_split("//u", $line, -1, PREG_SPLIT_NO_EMPTY);
+    # Iterate over each character in the line
+    foreach ($line_arr as $char) {
+        echo $char;
+        # Sleep for the given time (for aesthetic reasons)
+        usleep($time);
     }
+    # If newlines enabled
     if ($newline) {
         echo "\n";
     }
@@ -85,55 +89,77 @@ function congrats($time_text) {
     $key = 'xxxet-xi--ee--tteitxxeeetiteitxe-ixxii--ee--ieeetetxitextxexx-ii-ti-xi--t-i-e--t-iiit--etxeiex-xixit-xt-iett-xxex-xtetieix--ti-e-xxxxeixt--xxeieixeitee-eiee-xt-x-i-te-txxititxeexxte-titixi-tei-xieexx-xitittx-etitx--ie--ii-exit-iixt-ei---xxitx-itiexeitxeetxtetxiitxi-e--i-x-ixtexex---e-ttttxiietitiieeixixtiexx--exexetxxeei--xi-ixitte-tei-ttiexee-xtiitixxe-tti-e-xiiieix-ex-teeixex-xieix-eiie-exx--etex-etiittett--teii-tie-extixetiexi-xit-e-tei-i-tte-tetxtiix-ieix-ttexxieiiiet--xtietieiietxx-xexeit-xt-ttexii-tei-itxi-t-t-ixxix-ei-i-txixitetei-i-xeeexixte-xxitxittti-tte--te-xetiittxxiexeteixxx';
     slow_print($time_text, 'Here is your key:', true);
     echo "\n";
-    slow_print(2500, str_shuffle($key), true);      # randomise the key so it is different (nearly) every time
+    # Randomise the key so it is different (nearly) every time
+    slow_print(2500, str_shuffle($key), true);
     echo "\n";
     slow_print($time_text, 'Use it wisely.', true);
     echo "\n";
     exit;
 }
 
-function show_inventory($time_text, $inventory) {       # display the current inventory
+# Display the current inventory
+function show_inventory($time_text, $inventory) {
     echo "\n";
     slow_print($time_text, "        INVENTORY", true);
-    foreach ($inventory as $item => $has) {             # for each item in the inventory
-        if ($has == 1) {                                # if has the item
+    # For each item in the inventory
+    foreach ($inventory as $item => $has) {
+        # If the user has the item
+        if ($has == 1) {
             slow_print($time_text, "| $item", true);
         }
     }
 }
 
-function word_rand($word) {         # capitalise a word
+function word_rand($word) {
     $output = '';
     $cap_combo = '';
+    # Get the length of the word
     $length = strlen($word);
-    $random = mt_rand(0, $length - 1);  # choose a random letter to be capital
-    for ($i = 0; $i < $length; $i++) {  # for the length of the word
-        if ($random == $i) {            # if chosen to be capital
-            $output .= strtoupper(substr($word, $i, 1));    # add capital to full output
-            $cap_combo .= strtoupper(substr($word, $i, 1)); # add capital to combo
+    # Choose a random letter to be capital
+    $random = mt_rand(0, $length - 1);
+    # For the length of the word
+    for ($i = 0; $i < $length; $i++) {
+        # If chosen to be capital
+        if ($random == $i) {
+            # Add capital to full output
+            $output .= strtoupper(substr($word, $i, 1));
+            # Add capital to combo
+            $cap_combo .= strtoupper(substr($word, $i, 1));
         } else {
-            $output .= substr($word, $i, 1);                # add lowercase to full output
+            # Add lowercase to full output
+            $output .= substr($word, $i, 1);
         }
     }
-    return ['combo' => $cap_combo, 'full' => $output];             # return the letter for the combo and full output
+    # Return the letter for the combo and full output
+    return ['combo' => $cap_combo, 'full' => $output];
 }
 
-function full_rand($sentence, $end) {   # capitalise a sentence
+function full_rand($sentence, $end) {
     $output = '';
     $combo = '';
     $sentence = strtolower($sentence);
-    $words = explode(' ', $sentence);   # make an array of the words in the sentence
-    foreach ($words as $word) {         # for each word in the sentence
-        $rand = word_rand($word);       # randomise it using the above function
-        $combo .= $rand['combo'];       # assign the combo to a variable
-        $output .= $rand['full'];       # assign the full word to a variable
-        if (end($words) == $word) {       # if this is the last word in the sentence
-            $output .= $end;            # add the 'end' to the sentence
-        } else {                        # if this isn't the last word in the sentence
-            $output .= ' ';             # add a space to the end
+    # Make an array of the words in the sentence
+    $words = explode(' ', $sentence);
+    # For each word in the sentence
+    foreach ($words as $word) {
+        # Randomise it using the above function
+        $rand = word_rand($word);
+        # Assign the combo to a variable
+        $combo .= $rand['combo'];
+        # Assign the full word to a variable
+        $output .= $rand['full'];
+        # If this is the last word in the sentence
+        if (end($words) == $word) {
+            # Add the 'end' to the sentence
+            $output .= $end;
+            # If this isn't the last word in the sentence
+        } else {
+            # Add a space to the end
+            $output .= ' ';
         }
     }
-    return ['combo' => $combo, 'full' => $output];             # return the combo and full output
+    # return the combo and full output
+    return ['combo' => $combo, 'full' => $output];
 }
 
 
@@ -141,22 +167,27 @@ function full_rand($sentence, $end) {   # capitalise a sentence
 logo_space($time_logo);
 slow_print($time_text, 'Press the enter button to continue..', false);
 
+# Allow the user to input something other than enter
 $startup_input = readline('. ');
 
-# hidden demo
+# Hidden demo
 if ($startup_input == 'eXit') {
+    # Define inventory
     $inventory = [
         'Ruler' => 'false'
     ];
-    # desk
     slow_print($time_text, "\nYou wake in a cold room. The walls are bare and the carpet is worn.\nThe only light is provided by a dim bulb, which hangs loosely from the ceiling.\nEven the air feels unwelcoming and hostile. The bed you lie on is uncomfortable.\nA rickety wooden desk leans against the wall.", true);
     $wake_input = readline('> ');
+    # Define boolean that will let the code progress
     $wake_switch = false;
     while (!$wake_switch) {
+        # Look for one of the inputs in the array
         if (in_array($wake_input, ['look at desk', 'look desk', 'inspect desk', 'go to desk', 'go desk'])) {
+            # Set the boolean to true to end the while loop
             $wake_switch = true;
         } elseif (in_array($wake_input, ['look at bed', 'inspect bed', 'look bed'])) {
             slow_print($time_text, "\nThe sheets are dusty and coarse. It is obvious that no part of the bed has been cleaned for months.", true);
+            # Allow the user to input again
             $wake_input = readline('> ');
         } else {
             slow_print($time_text, "\nI'm sorry, I don't know what you mean.", true);
@@ -168,44 +199,56 @@ if ($startup_input == 'eXit') {
     $desk_switch = false;
     $drawer_tried_switch = false;
     $drawer_open_switch = false;
+    # Generate a randomly capitalised sentence and corresponding combination from the given sentence
     $note =  full_rand('exit while you still can', '.');
     while (!$desk_switch) {
         if (in_array($desk_input, ['look at drawer', 'inspect drawer', 'look drawer', 'open drawer'])) {
             if ($drawer_open_switch == false) {
+                # If user hasn't tried the drawer and doesn't have the ruler
                 if ($drawer_tried_switch == false && $inventory['Ruler'] != 1) {
                     slow_print($time_text, "\nThe drawer lies ajar, but something seems to be jamming it from opening fully.\nYou attempt to clear the blockage, but it is just out of reach.", true);
+                    # User has tried the drawer
                     $drawer_tried_switch = true;
+                # If user has tried the drawer and doesn't have the ruler
                 } elseif ($drawer_tried_switch == true && $inventory['Ruler'] != 1) {
                     slow_print($time_text, "\nThe drawer still won't budge. Perhaps there's some sort of instrument that could clear the blockage?", true);
+                # If user hasn't tried drawer and has the ruler
                 } elseif ($drawer_tried_switch == false && $inventory['Ruler'] == 1) {
                     slow_print($time_text, "\nThe drawer lies ajar, but something seems to be jamming it from opening fully.\nAfter a few tries, you use the ruler to pry the obstruction free.\nThe drawer is empty, but you discover that the blockage was caused by a small black box.\nIt has a lock on the side that requires 5 letters.\n(Say 'lock [combination]' to unlock.)", true);
                     $drawer_tried_switch = true;
+                    # User has opened the drawer
                     $drawer_open_switch = true;
+                # If user has tried the drawer and has the ruler
                 } elseif ($drawer_tried_switch == true && $inventory['Ruler'] == 1) {
                     slow_print($time_text, "\nAfter a few tries, you use the ruler to pry the obstruction free.\nThe drawer is empty, but you discover that the blockage was caused by a small black box.\nIt has a lock on the side that requires 5 letters.\n(Say 'lock [combination]' to unlock.)", true);
                     $drawer_open_switch = true;
                 }
-                $desk_input = readline('> ');
+            # If user has opened the drawer
             } else {
                 slow_print($time_text, "\nThe lock in the drawer requires 5 letters.\n(Say 'lock [combination]' to unlock.)", true);
-                $desk_input = readline('> ');
             }
+            $desk_input = readline('> ');
+        # If user has entered 'lock'
         } elseif (substr_count($desk_input, 'lock') == 1) {
+            # Find the code the user entered
             $combo = substr($desk_input, 5, 5);
+            # If the combination matches the user's code
             if (strtolower($combo) == strtolower($note['combo'])) {
-                slow_print($time_text, "\nThe lock clicks open. Peering inside the box, you see a small brass key.\nYou use it to open the door to your room, and eXit.", true);
+                slow_print($time_text, "\nThe lock clicks open. Peering inside the box, you see a small brass key.\nYou use it to open the door to the room, and eXit.", true);
                 $desk_switch = true;
                 congrats($time_text);
             } else {
                 slow_print($time_text, "\nIncorrect combination.\n(Say 'lock [combination]' to unlock.)", true);
                 $desk_input = readline('> ');
             }
-
         } elseif (in_array($desk_input, ['look paper', 'look at paper', 'inspect paper', 'look ruler', 'look at ruler', 'inspect ruler'])) {
+            # If user has ruler
             if ($inventory['Ruler'] == 1) {
                 slow_print($time_text, "\nThe paper reads:\n".$note['full'], true);
+            # If user doesn't have the ruler
             } else {
                 slow_print($time_text, "\nThe ruler and the paper on the desk are less dusty than the rest of the room.\nYou pick up the ruler.", true);
+                # Add the ruler to the inventory
                 $inventory['Ruler'] = true;
                 show_inventory($time_text, $inventory);
                 slow_print($time_text, "\nYou look at the paper more closely. It reads:\n".$note['full'], true);
@@ -213,7 +256,7 @@ if ($startup_input == 'eXit') {
             $desk_input = readline('> ');
         } elseif (in_array($desk_input, ['look', 'look desk', 'inspect desk', 'look at desk'])) {
             if ($drawer_open_switch) {
-                slow_print($time_text, "\nThe paint of the desk is off-white and flaky.\nIt seems to be clinging to the wood for dear life.\nA single sheet of paper lies on the desk.\nThe drawer is open; a locked box sits inside.", true);
+                slow_print($time_text, "\nThe paint of the desk is off-white and flaky.\nIt seems to be clinging to the wood for dear life.\nA single sheet of paper lies on the desk.\nOne of the drawers is open.", true);
             } else {
                 if ($inventory['Ruler'] == 1) {
                     slow_print($time_text, "\nThe paint of the desk is off-white and flaky.\nIt seems to be clinging to the wood for dear life.\nA single sheet of paper lies on the desk.\nOne of the drawers is slightly open.", true);
@@ -227,6 +270,7 @@ if ($startup_input == 'eXit') {
             $desk_input = readline('> ');
         }
     }
+# Show-accurate version
 } elseif ($startup_input == 'og') {
     slow_print($time_text, "\nYou're trapped in a dungeon with your friend. You see a barrel.\nWhat do you do?", true);
     $barrel_input = readline('> ');
@@ -297,8 +341,8 @@ if ($startup_input == 'eXit') {
             $boat_input = readline('> ');
         }
     }
+# More detailed version
 } else {
-    # more detailed story
     slow_print($time_text, "\nYou're trapped in a dungeon with your friend.\nThey are injured, and sit slumped against a wall.\nThere is a barrel in front of you.", true);
     $barrel_input = readline('> ');
     $barrel_switch = false;
@@ -350,6 +394,7 @@ if ($startup_input == 'eXit') {
             $tunnel_input = readline('> ');
         }
     }
+    # If the user has already chosen to leave
     if ($left_switch) {
         slow_print($time_text, "\nYou take one last look at your friend, then walk towards the exit.", false);
     } else {
