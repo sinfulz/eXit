@@ -37,36 +37,6 @@ $time_logo = 1100;
 $time_text = 26000;
 $time_text = 1000; # debug speed
 
-function startup($time_logo) {
-    slow_print($time_logo, '████████████████████████████████████████████████████████████████████████████████', true);
-    slow_print($time_logo, '███████████████████████████████'.cyan('▓╫╫╫╫').'█████'.cyan('╫╫╫╫▓').'██████████████████████████████████', true);
-    slow_print($time_logo, '███████████████████'.cyan('╬╬╬╬╬╬╬╬').'█████'.cyan('╬╬╬╬╬╬╬╬╬╬╬╬╣').'█████████████'.cyan('╬╬╬╬').'██████████████████', true);
-    slow_print($time_logo, '█████████████████'.cyan('╬╬╬▓').'███'.cyan('▓╬╬╬╣').'████'.cyan('▓╬╬╬╬╬╬╬╬╬').'███████'.cyan('▓╬╬╬╬').'██'.cyan('▓▓╬╬╬╬╣▓▓').'██████████████', true);
-    slow_print($time_logo, '██████████████'.cyan('╬╬╬╬╬╬╬╬╬╬╬╬╬╬╣').'████'.cyan('▓╬╬╬╬╬╬╬╬╬').'████████'.cyan('╬╬╬╬╬').'█████'.cyan('╬╬╬╬').'███████████████', true);
-    slow_print($time_logo, '█████████████'.cyan('╬╬╬╬▓').'███████████████'.cyan('╬╬╬╬╬╬╬╬╬╬╬').'███████'.cyan('▓╬╬╬╬').'█████'.cyan('▓╬╬╬╬╬').'█████████████', true);
-    slow_print($time_logo, '███████████'.cyan('▓╬╬╬╬╬').'███'.cyan('╬╬╬╬╬╣').'█████'.cyan('╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬').'██████'.cyan('╬╬╬╬╬╬').'████'.cyan('▓╬╬╬╬╣').'████████████', true);
-    slow_print($time_logo, '██████████'.cyan('╬╬╬╬╬╬╬╬╬╬╬╬╬▓▓').'████'.cyan('╬╬╬╬╬╬╬▓').'██'.cyan('╬╬╬╬╬╬╬╬').'█████'.cyan('╬╬╬╬╬╬').'██████'.cyan('▓╬╬╬╬╬').'██████████', true);
-    slow_print($time_logo, '█████████████'.cyan('╫╫╫╫╫╫╫').'██████'.cyan('╬╫╫╫╫╫╫╫╫').'█████'.cyan('▓╫╫╫╫╫╫╫╢').'█████'.cyan('╫╫╫╫╫').'████████'.cyan('╫╫╫╫╫╫╫╢').'█████', true);
-    slow_print($time_logo, '██████████████████████████'.cyan('╬╬╬╬╬╬╬▓').'███████'.cyan('▓╬╬╬╬╬╬╬').'██████████████████████'.cyan('▓▓▓').'██████', true);
-    slow_print($time_logo, '███████████████████████'.cyan('▓╬╬╬╬╬╬╬▓').'██████████'.cyan('╬╬╬╬╬╬╬╬╬╬').'████████████████████████████', true);
-    slow_print($time_logo, '████████████████████████████████████████████████████████████████████████████████', true);
-}
-
-function shutdown($time_logo) {
-    slow_print($time_logo, black('████████████████████████████████████████████████████████████████████████████████'), true);
-    slow_print($time_logo, black('███████████████████████████████').'▓╫╫╫╫'.black('█████').'╫╫╫╫▓'.black('██████████████████████████████████'), true);
-    slow_print($time_logo, black('███████████████████').'╬╬╬╬╬╬╬╬'.black('█████').'╬╬╬╬╬╬╬╬╬╬╬╬╣'.black('█████████████').'╬╬╬╬'.black('██████████████████'), true);
-    slow_print($time_logo, black('█████████████████').'╬╬╬▓'.black('███').'▓╬╬╬╣'.black('████').'▓╬╬╬╬╬╬╬╬╬'.black('███████').'▓╬╬╬╬'.black('██').'▓▓╬╬╬╬╣▓▓'.black('██████████████'), true);
-    slow_print($time_logo, black('██████████████').'╬╬╬╬╬╬╬╬╬╬╬╬╬╬╣'.black('████').'▓╬╬╬╬╬╬╬╬╬'.black('████████').'╬╬╬╬╬'.black('█████').'╬╬╬╬'.black('███████████████'), true);
-    slow_print($time_logo, black('█████████████').'╬╬╬╬▓'.black('███████████████').'╬╬╬╬╬╬╬╬╬╬╬'.black('███████').'▓╬╬╬╬'.black('█████').'▓╬╬╬╬╬'.black('█████████████'), true);
-    slow_print($time_logo, black('███████████').'▓╬╬╬╬╬'.black('███').'╬╬╬╬╬╣'.black('█████').'╬╬╬╬╬╬╬╬╬╬╬╬╬╬╬'.black('██████').'╬╬╬╬╬╬'.black('████').'▓╬╬╬╬╣'.black('████████████'), true);
-    slow_print($time_logo, black('██████████').'╬╬╬╬╬╬╬╬╬╬╬╬╬▓▓'.black('████').'╬╬╬╬╬╬╬▓'.black('██').'╬╬╬╬╬╬╬╬'.black('█████').'╬╬╬╬╬╬'.black('██████').'▓╬╬╬╬╬'.black('██████████'), true);
-    slow_print($time_logo, black('█████████████').'╫╫╫╫╫╫╫'.black('██████').'╬╫╫╫╫╫╫╫╫'.black('█████').'▓╫╫╫╫╫╫╫╢'.black('█████').'╫╫╫╫╫'.black('████████').'╫╫╫╫╫╫╫╢'.black('█████'), true);
-    slow_print($time_logo, black('██████████████████████████').'╬╬╬╬╬╬╬▓'.black('███████').'▓╬╬╬╬╬╬╬'.black('██████████████████████').'▓▓▓'.black('██████'), true);
-    slow_print($time_logo, black('███████████████████████').'▓╬╬╬╬╬╬╬▓'.black('██████████').'╬╬╬╬╬╬╬╬╬╬'.black('████████████████████████████'), true);
-    slow_print($time_logo, black('████████████████████████████████████████████████████████████████████████████████'), true);
-}
-
 function logo_space($time_logo) {
     slow_print($time_logo, '                                                                                ', true);
     slow_print($time_logo, '                               ▓╫╫╫╫     ╫╫╫╫▓                                  ', true);
@@ -80,21 +50,6 @@ function logo_space($time_logo) {
     slow_print($time_logo, '                          ╬╬╬╬╬╬╬▓       ▓╬╬╬╬╬╬╬                      ▓▓▓      ', true);
     slow_print($time_logo, '                       ▓╬╬╬╬╬╬╬▓          ╬╬╬╬╬╬╬╬╬╬                            ', true);
     slow_print($time_logo, '                                                                                ', true);
-}
-
-
-function congrats($time_text) {
-    echo "\n";
-    slow_print($time_text, 'Congratulations. You have passed the test.', true);
-    $key = 'xxxet-xi--ee--tteitxxeeetiteitxe-ixxii--ee--ieeetetxitextxexx-ii-ti-xi--t-i-e--t-iiit--etxeiex-xixit-xt-iett-xxex-xtetieix--ti-e-xxxxeixt--xxeieixeitee-eiee-xt-x-i-te-txxititxeexxte-titixi-tei-xieexx-xitittx-etitx--ie--ii-exit-iixt-ei---xxitx-itiexeitxeetxtetxiitxi-e--i-x-ixtexex---e-ttttxiietitiieeixixtiexx--exexetxxeei--xi-ixitte-tei-ttiexee-xtiitixxe-tti-e-xiiieix-ex-teeixex-xieix-eiie-exx--etex-etiittett--teii-tie-extixetiexi-xit-e-tei-i-tte-tetxtiix-ieix-ttexxieiiiet--xtietieiietxx-xexeit-xt-ttexii-tei-itxi-t-t-ixxix-ei-i-txixitetei-i-xeeexixte-xxitxittti-tte--te-xetiittxxiexeteixxx';
-    slow_print($time_text, 'Here is your key:', true);
-    echo "\n";
-    # Randomise the key so it is different (nearly) every time
-    slow_print(2500, str_shuffle($key), true);
-    echo "\n";
-    slow_print($time_text, 'Use it wisely.', true);
-    echo "\n";
-    exit;
 }
 
 # Display the current inventory
@@ -229,14 +184,19 @@ if ($startup_input == 'eXit') {
             }
             $desk_input = readline('> ');
         # If user has entered 'lock'
-        } elseif (substr_count($desk_input, 'lock') == 1) {
+        } elseif (substr_count($desk_input, 'lock') == 1 && $drawer_open_switch == true) {
             # Find the code the user entered
             $combo = substr($desk_input, 5, 5);
             # If the combination matches the user's code
             if (strtolower($combo) == strtolower($note['combo'])) {
                 slow_print($time_text, "\nThe lock clicks open. Peering inside the box, you see a small brass key.\nYou use it to open the door to the room, and eXit.", true);
+                slow_print($time_text, "\nCongratulations. You have passed the test.", true);
+                $key = 'xxxet-xi--ee--tteitxxeeetiteitxe-ixxii--ee--ieeetetxitextxexx-ii-ti-xi--t-i-e--t-iiit--etxeiex-xixit-xt-iett-xxex-xtetieix--ti-e-xxxxeixt--xxeieixeitee-eiee-xt-x-i-te-txxititxeexxte-titixi-tei-xieexx-xitittx-etitx--ie--ii-exit-iixt-ei---xxitx-itiexeitxeetxtetxiitxi-e--i-x-ixtexex---e-ttttxiietitiieeixixtiexx--exexetxxeei--xi-ixitte-tei-ttiexee-xtiitixxe-tti-e-xiiieix-ex-teeixex-xieix-eiie-exx--etex-etiittett--teii-tie-extixetiexi-xit-e-tei-i-tte-tetxtiix-ieix-ttexxieiiiet--xtietieiietxx-xexeit-xt-ttexii-tei-itxi-t-t-ixxix-ei-i-txixitetei-i-xeeexixte-xxitxittti-tte--te-xetiittxxiexeteixxx';
+                slow_print($time_text, "Here is your key:\n", true);
+                # Randomise the key so it is different (nearly) every time
+                slow_print(2500, str_shuffle($key)."\n", true);
+                slow_print($time_text, "Use it wisely.\n", true);
                 $desk_switch = true;
-                congrats($time_text);
             } else {
                 slow_print($time_text, "\nIncorrect combination.\n(Say 'lock [combination]' to unlock.)", true);
                 $desk_input = readline('> ');
