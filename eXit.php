@@ -159,26 +159,26 @@ if ($startup_input == 'eXit') {
                     slow_print($time_text, "\nThe drawer lies ajar, but something seems to be jamming it from opening fully.\nYou attempt to clear the blockage, but it is just out of reach.", true);
                     # User has tried the drawer
                     $drawer_tried_switch = true;
-                # If user has tried the drawer and doesn't have the ruler
+                    # If user has tried the drawer and doesn't have the ruler
                 } elseif ($drawer_tried_switch == true && $inventory['Ruler'] != 1) {
                     slow_print($time_text, "\nThe drawer still won't budge. Perhaps there's some sort of instrument that could clear the blockage?", true);
-                # If user hasn't tried drawer and has the ruler
+                    # If user hasn't tried drawer and has the ruler
                 } elseif ($drawer_tried_switch == false && $inventory['Ruler'] == 1) {
                     slow_print($time_text, "\nThe drawer lies ajar, but something seems to be jamming it from opening fully.\nAfter a few tries, you use the ruler to pry the obstruction free.\nThe drawer is empty, but you discover that the blockage was caused by a small black box.\nIt has a lock on the side that requires 5 letters.\n(Say 'lock [combination]' to unlock.)", true);
                     $drawer_tried_switch = true;
                     # User has opened the drawer
                     $drawer_open_switch = true;
-                # If user has tried the drawer and has the ruler
+                    # If user has tried the drawer and has the ruler
                 } elseif ($drawer_tried_switch == true && $inventory['Ruler'] == 1) {
                     slow_print($time_text, "\nAfter a few tries, you use the ruler to pry the obstruction free.\nThe drawer is empty, but you discover that the blockage was caused by a small black box.\nIt has a lock on the side that requires 5 letters.\n(Say 'lock [combination]' to unlock.)", true);
                     $drawer_open_switch = true;
                 }
-            # If user has opened the drawer
+                # If user has opened the drawer
             } else {
                 slow_print($time_text, "\nThe lock in the drawer requires 5 letters.\n(Say 'lock [combination]' to unlock.)", true);
             }
             $desk_input = readline('> ');
-        # If user has entered 'lock'
+            # If user has entered 'lock'
         } elseif (substr_count($desk_input, 'lock') == 1 && $drawer_open_switch == true) {
             # Find the code the user entered
             $combo = substr($desk_input, 5, 5);
@@ -200,7 +200,7 @@ if ($startup_input == 'eXit') {
             # If user has ruler
             if ($inventory['Ruler'] == 1) {
                 slow_print($time_text, "\nThe paper reads:\n".$note['full'], true);
-            # If user doesn't have the ruler
+                # If user doesn't have the ruler
             } else {
                 slow_print($time_text, "\nThe ruler and the paper on the desk are less dusty than the rest of the room.\nYou pick up the ruler.", true);
                 # Add the ruler to the inventory
@@ -243,16 +243,21 @@ if ($startup_input == 'eXit') {
 
     slow_print($time_text, "\nYou start to escape but your friend is too weak to go with you.\nThey hand you a note.", true);
     $hand_input = readline('> ');
-    while ($hand_input != 'leave') {
-        if (in_array($hand_input, ['read note'])) {
+    $hand_switch = false;
+    $read_switch = false;
+    while (!$hand_switch) {
+        if ($hand_input == 'read note' && !$read_switch) {
             slow_print($time_text, "\nIt is too dark to read the note.", true);
             $hand_input = readline('> ');
-        } elseif (in_array($hand_input, ['light a match'])) {
+        } elseif ($hand_input == 'light a match' && !$read_switch) {
             slow_print($time_text, "\nThe note says, \"Don't leave me here.\"\nDo you leave your friend or stay?", true);
+            $read_switch = true;
             $hand_input = readline('> ');
-        } elseif (in_array($hand_input, ['stay'])) {
+        } elseif ($hand_input == 'stay' && $read_switch) {
             logo_space($time_logo);
             exit;
+        } elseif ($hand_input == 'leave' && $read_switch) {
+            $hand_switch = true;
         } else {
             slow_print($time_text, "\nYou can't do that here.", true);
             $hand_input = readline('> ');
@@ -282,19 +287,19 @@ if ($startup_input == 'eXit') {
     $left_switch = false;
     $note_switch = false;
     while (!in_array($barrel_input, ['look at barrel', 'look barrel', 'inspect barrel', 'move barrel'])) {
-        if (in_array($barrel_input, ['sit', 'sit down', 'sit with friend', 'sit down with friend', 'sit with my friend', 'sit down with my friend'])) {
+        if (in_array($barrel_input, ['sit', 'sit down', 'sit with friend', 'sit down with friend', 'sit with my friend', 'sit down with my friend']) && !$sit_switch) {
             slow_print($time_text, "\nAs you sit down next to your friend, they hand you a note.", true);
             $sit_switch = true;
             $barrel_input = readline('> ');
-        } elseif (in_array($barrel_input, ['read note', 'read', 'look note', 'look at note']) && $sit_switch) {
+        } elseif (in_array($barrel_input, ['read note', 'read', 'look note', 'look at note']) && $sit_switch && !$note_switch) {
             slow_print($time_text, "\nIt is too dark to read the note.\nYou remember the box of matches in your pocket, empty but for one.", true);
             $barrel_input = readline('> ');
-        } elseif (in_array($barrel_input, ['light a match', 'light match']) && $sit_switch) {
+        } elseif (in_array($barrel_input, ['light a match', 'light match']) && $sit_switch && !$note_switch) {
             slow_print($time_text, "\nThe match flickers to life, and illuminates the note.\nThe note says, \"Don't leave me here.\"\nDo you leave your friend or stay?", true);
             $note_switch = true;
             $barrel_input = readline('> ');
-        } elseif ($barrel_input == 'stay' && $note_switch && $sit_switch) {
-            slow_print($time_text, "\nYou stay seated next to your friend.\nAs the match's flame wavers, your friend turns to you and smiles.", true);
+        } elseif ($barrel_input == 'stay' && $sit_switch && $note_switch ) {
+            slow_print($time_text, "\nYou stay seated next to your friend.\nAs the flame of the match wavers, your friend turns to you and smiles.", true);
             logo_space($time_logo);
             exit;
         } elseif ($barrel_input == 'leave' && $sit_switch) {
@@ -331,19 +336,19 @@ if ($startup_input == 'eXit') {
         $note_switch = false;
         $leave_switch = false;
         while (!$hand_switch) {
-            if (in_array($hand_input, ['read note', 'read', 'look note', 'look at note'])) {
+            if (in_array($hand_input, ['read note', 'read', 'look note', 'look at note']) && !$note_switch) {
                 slow_print($time_text, "\nIt is too dark to read the note.\nYou remember the box of matches in your pocket, empty but for one.", true);
                 $hand_input = readline('> ');
-            } elseif (in_array($hand_input, ['light a match', 'light match'])) {
+            } elseif (in_array($hand_input, ['light a match', 'light match']) && !$note_switch) {
                 slow_print($time_text, "\nThe match flickers to life, and illuminates the note.\nThe note says, \"Don't leave me here.\"\nDo you leave your friend or stay?", true);
                 $note_switch = true;
                 $hand_input = readline('> ');
-            } elseif (in_array($hand_input, ['stay']) && $note_switch || in_array($hand_input, ['stay']) && $leave_switch && !$left_switch) {
-                slow_print($time_text, "\nYou sit down next to your friend.\nAs the match's flame wavers, your friend turns to you and smiles.", true);
+            } elseif ($hand_input == 'stay' && $note_switch || $hand_input == 'stay' && !$leave_switch) {
+                slow_print($time_text, "\nYou sit down next to your friend.\nAs the flame of the match wavers, your friend turns to you and smiles.", true);
                 logo_space($time_logo);
                 exit;
             } elseif (in_array($hand_input, ['leave', 'enter tunnel', 'go tunnel', 'go to tunnel'])) {
-                if ($leave_switch || $left_switch) {
+                if ($leave_switch) {
                     slow_print($time_text, "\nYou take one last look at your friend, then walk towards the exit.", false);
                     $hand_switch = true;
                 } else {
