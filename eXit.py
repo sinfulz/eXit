@@ -17,7 +17,7 @@ def logo_space() :
 
 # Display the current inventory
 def show_inventory(inventory) :
-    print("        INVENTORY")
+    print(''        INVENTORY')
     # For each item in the inventory
     for item in inventory :
         # If the user has the item
@@ -84,7 +84,6 @@ startup_input = input('Press the enter button to continue...')
 if startup_input == 'eXit' :
     # Define inventory
     inventory = {'Ruler': False}
-    #print("You wake in a cold room. The walls are bare and the carpet is worn.\nThe only light is provided by a dim bulb, which hangs loosely from the ceiling.\nEven the air feels unwelcoming and hostile. The bed you lie on is uncomfortable.\nA rickety wooden desk leans against the wall.")
     current_input = input('\nYou wake in a cold room. The walls are bare and the carpet is worn.\nThe only light is provided by a dim bulb, which hangs loosely from the ceiling.\nEven the air feels unwelcoming and hostile. The bed you lie on is uncomfortable.\nA rickety wooden desk leans against the wall.\n> ')
     # Define boolean that will let the code progress
     wake_switch = False
