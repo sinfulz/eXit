@@ -348,7 +348,7 @@ if ($startup_input == 'eXit') {
                 slow_print($time_text, "\nYou sit down next to your friend.\nAs the flame of the match wavers, your friend turns to you and smiles.", true);
                 logo_space($time_logo);
                 exit;
-            } elseif (in_array($input, ['leave', 'enter tunnel', 'go tunnel', 'go to tunnel'])) {
+            } elseif (in_array($input, ['leave', 'look tunnel', 'enter tunnel', 'go tunnel', 'go to tunnel'])) {
                 if ($leave_switch) {
                     slow_print($time_text, "\nYou take one last look at your friend, then walk towards the exit.", false);
                     $hand_switch = true;
