@@ -36,6 +36,7 @@ function slow_print($time, $line, $newline) {
 $time_logo = 1100;
 $time_text = 26000;
 #$time_text = 1000; # debug speed
+#$time_text = 1000; # debug speed
 
 function logo_space($time_logo) {
     slow_print($time_logo, '                                                                                ', true);
@@ -317,7 +318,7 @@ if ($startup_input == 'eXit') {
 
     slow_print($time_text, "\nFlecks of paint fall from the barrel when you touch it.\nIts metal frame, rusted and worn, creaks as you roll it aside.\nIn its place lies the entrance to a secret tunnel.", true);
     $input = readline('> ');
-    while (!in_array($input, ['leave', 'go to tunnel', 'go tunnel', 'enter tunnel'])) {
+    while (!in_array($input, ['leave', 'look tunnel', 'go to tunnel', 'go tunnel', 'enter tunnel'])) {
         if (in_array($input, ['look', 'look around'])) {
             slow_print($time_text, "\nThe walls of the dungeon are damp.\nThe only way forward is through the tunnel.\nThe light on the other side is blinding.", true);
             $input = readline('> ');
@@ -369,7 +370,7 @@ if ($startup_input == 'eXit') {
     slow_print($time_text, "\nIn your haste to escape, you dislodge part of the tunnel.\nYou narrowly avoid being crushed to death, and find yourself on a beach.", true);
     slow_print($time_text, "\nIn the water you see a majestic ship. Its sails are as white as pearls.\nIt floats in a calm, inviting manner.", true);
     $input = readline('> ');
-    while (!in_array($input, ['get on boat', 'look at boat', 'get on ship', 'look at ship'])) {
+    while (!in_array($input, ['get on boat', 'look boat', 'look ship', 'look at boat', 'get on ship', 'look at ship'])) {
         if (in_array($input, ['read note', 'read', 'look note', 'look at note'])) {
             slow_print($time_text, "\nThe note says, \"Don't leave me here.\"\nIt is too late.", true);
             $input = readline('> ');
@@ -378,7 +379,7 @@ if ($startup_input == 'eXit') {
             $input = readline('> ');
         }
     }
-    slow_print($time_text, "\nAs you board the ship, you can't help but look back at the\ncollapsed remains of the tunnel.\nYou're heading to a new world, whether you like it or not.", false);
+    slow_print($time_text, "\nAs you board the ship, you can't help but look back at the\ncollapsed remains of the tunnel.\nYou're heading to a new world, whether you like it or not.", true);
     logo_space($time_logo);
 }
 echo "\n";
