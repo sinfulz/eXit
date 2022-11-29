@@ -35,7 +35,7 @@ function slow_print($time, $line, $newline) {
 # Time variables
 $time_logo = 1100;
 $time_text = 26000;
-$time_text = 1000; # debug speed
+#$time_text = 1000; # debug speed
 
 function logo_space($time_logo) {
     slow_print($time_logo, '                                                                                ', true);
